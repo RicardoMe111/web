@@ -1,0 +1,139 @@
+<div class="wallet-list">
+    <!-- 分类标签 -->
+    <div class="category-tabs">
+        <a href="#" class="tab active">所有</a>
+        <a href="#" class="tab">APP钱包</a>
+        <a href="#" class="tab">PC钱包</a>
+        <a href="#" class="tab">硬件钱包</a>
+        <a href="#" class="tab">我的关注</a>
+        <div class="chain-filter">
+            <span>支持公链</span>
+            <i class="icon-arrow-down"></i>
+            <div class="chain-dropdown">
+                <div class="chain-list">
+                    <label class="chain-option">
+                        <input type="checkbox" value="all">
+                        <span class="chain-icon">ALL</span>
+                        全部
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="BTC">
+                        <span class="chain-icon btc">BTC</span>
+                        比特币
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="ETH">
+                        <span class="chain-icon eth">ETH</span>
+                        以太坊
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="BSC">
+                        <span class="chain-icon bsc">BSC</span>
+                        币安智能链
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="SOL">
+                        <span class="chain-icon sol">SOL</span>
+                        索拉纳
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="AVAX">
+                        <span class="chain-icon avax">AVAX</span>
+                        雪崩
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="MATIC">
+                        <span class="chain-icon matic">MATIC</span>
+                        Polygon
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="DOT">
+                        <span class="chain-icon dot">DOT</span>
+                        波卡
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="NEAR">
+                        <span class="chain-icon near">NEAR</span>
+                        NEAR
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="ATOM">
+                        <span class="chain-icon atom">ATOM</span>
+                        Cosmos
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="FTM">
+                        <span class="chain-icon ftm">FTM</span>
+                        Fantom
+                    </label>
+                    <label class="chain-option">
+                        <input type="checkbox" value="ALGO">
+                        <span class="chain-icon algo">ALGO</span>
+                        Algorand
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <!-- 列表头部 -->
+    <div class="list-header">
+        <div class="rank sortable"># <i class="icon-sort"></i></div>
+        <div class="name sortable">名称 <i class="icon-sort"></i></div>
+        <div class="decentralized">去中心化</div>
+        <div class="platform">支持类型</div>
+        <div class="chains sortable">支持币种 <i class="icon-sort"></i></div>
+        <div class="storage">密钥存放</div>
+        <div class="source">代码开源</div>
+        <div class="type">中心化程度</div>
+        <div class="multi-sig">多重签名</div>
+        <div class="services">额外服务</div>
+        <div class="score sortable">综合评分 <i class="icon-sort"></i></div>
+    </div>
+    
+    <!-- 列表内容 -->
+    <div class="list-content"></div>
+
+ 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch(`${window.API_CONFIG.baseURL}/wallets`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 0) {
+                    renderTable(data.data);
+                } else {
+                    console.error('获取数据失败:', data.message);
+                }
+            })
+            .catch(error => console.error('请求失败:', error));
+
+        function renderTable(wallets) {
+            const listContent = document.querySelector('.list-content');
+            listContent.innerHTML = '';
+
+            wallets.forEach(wallet => {
+                const div = document.createElement('div');
+                div.className = 'list-item';
+                div.innerHTML = `
+                    <div class="rank">${wallet.rank}</div>
+                    <div class="name">
+                        <span>${wallet.name}</span>
+                    </div>
+                    <div class="decentralized">${wallet.decentralized ? '<i class="icon-check"></i>' : '<i class="icon-close"></i>'}</div>
+                    <div class="platform">${wallet.supported_types}</div>
+                    <div class="chains">${wallet.supported_coins}</div>
+                    <div class="storage">${wallet.key_storage}</div>
+                    <div class="source">${wallet.open_source}</div>
+                    <div class="type">${wallet.type}</div>
+                    <div class="multi-sig">${wallet.multi_sig ? '<i class="icon-check"></i>' : '<i class="icon-close"></i>'}</div>
+                    <div class="services">${wallet.services}</div>
+                    <div class="score">${wallet.score}</div>
+                `;
+                listContent.appendChild(div);
+            });
+        }
+    });
+</script> 

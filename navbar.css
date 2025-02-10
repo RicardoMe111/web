@@ -1,0 +1,227 @@
+/* 导航栏基础样式 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: var(--nav-bg);
+    z-index: 1000;
+}
+
+.navbar .preview {
+    height: 60px;
+    background: var(--nav-bg);
+}
+
+.navbar .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px;
+    min-width: 1440px;
+}
+
+/* 导航栏左侧样式 */
+.leftSide {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 24px;
+    margin-right: 32px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-text {
+    color: var(--nav-text);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-left: 8px;
+}
+
+/* 统计数据样式 */
+.stats {
+    display: flex;
+    gap: 32px;
+    margin-left: 48px;
+    position: relative;
+    flex-wrap: nowrap;
+}
+
+.stat-item {
+    min-width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 2px;
+    position: relative;
+    white-space: nowrap;
+}
+
+.stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.stat-item .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--nav-text);
+    line-height: 17px;
+    font-family: DIN, Roboto, sans-serif;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+}
+
+.stat-item .label {
+    font-size: 12px;
+    color: var(--nav-text-secondary);
+    margin-top: 3px;
+    line-height: 14px;
+}
+
+/* 导航栏右侧样式 */
+.rightSide {
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+/* 语言切换器样式 */
+.language-switcher {
+    position: relative;
+}
+
+.language-switcher .icon-language {
+    font-size: 16px;
+    margin-right: 4px;
+}
+
+.language-switcher .icon-arrow-down {
+    font-size: 12px;
+    margin-left: 4px;
+    transition: transform 0.3s;
+}
+
+.language-switcher:hover .icon-arrow-down {
+    transform: rotate(180deg);
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 160px;
+    background: var(--nav-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px 0;
+    margin-top: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.language-switcher:hover .language-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    color: var(--nav-text-secondary);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.lang-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--nav-text);
+}
+
+.lang-item.active {
+    color: var(--nav-text);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.lang-name {
+    font-size: 14px;
+}
+
+.lang-code {
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+.language-dropdown::-webkit-scrollbar {
+    width: 4px;
+}
+
+.language-dropdown::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.language-dropdown::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 2px;
+}
+
+.language-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 操作按钮样式 */
+.actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    height: 100%;
+    flex-wrap: nowrap;
+}
+
+.action-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--nav-text-secondary);
+    text-decoration: none;
+    cursor: pointer;
+    height: 100%;
+    padding: 0 12px;
+    font-size: 14px;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.action-item:hover {
+    color: var(--nav-text);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.separator {
+    color: var(--nav-text-light);
+    margin: 0 4px;
+} 

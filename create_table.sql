@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS coins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    market_cap DECIMAL(20,2) NOT NULL,
+    price DECIMAL(20,2) NOT NULL,
+    volume_24h DECIMAL(20,2) NOT NULL,
+    circulating_supply DECIMAL(20,2) NOT NULL,
+    turnover_rate DECIMAL(10,2) NOT NULL,
+    change_24h DECIMAL(10,2) NOT NULL,
+    price_history TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+); 

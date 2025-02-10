@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻日历</title>
+    <style>
+        :root {
+            --primary-color: #1890ff;
+            --up-color: #52c41a;
+            --down-color: #f5222d;
+            --border-color: #e8e8e8;
+            --text-color: #333;
+            --bg-color: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            color: var(--text-color);
+            background: #f0f2f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+        }
+
+        .news-list {
+            background: var(--bg-color);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .date {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .news-count {
+            color: #666;
+        }
+
+        .filter {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            background: #f5f5f5;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover {
+            background: #e6f7ff;
+            color: var(--primary-color);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .news-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .news-item {
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .news-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .news-item.important {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .time {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .desc {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .source {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+
+        .source-name {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .source-name:hover {
+            text-decoration: underline;
+        }
+
+        .stats {
+            display: flex;
+            gap: 12px;
+            color: #999;
+        }
+
+        .calendar-sidebar {
+            background: var(--bg-color);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .current-month {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .nav-btn {
+            padding: 4px 8px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .nav-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .calendar {
+            width: 100%;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .day:hover {
+            background: #e6f7ff;
+            color: var(--primary-color);
+        }
+
+        .day.current {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .day.prev-month {
+            color: #ccc;
+        }
+
+        .category-list {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .category-item:hover {
+            background: #f5f5f5;
+        }
+
+        .category-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .category-name {
+            flex: 1;
+        }
+
+        .category-count {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .error-message {
+            text-align: center;
+            color: var(--down-color);
+            padding: 20px;
+            background: #fff2f0;
+            border-radius: 4px;
+            border: 1px solid #ffccc7;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            background: #fafafa;
+            border-radius: 4px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="news-list">
+            <div class="header">
+                <div class="date"></div>
+                <div class="news-count">加载中...</div>
+            </div>
+            <div class="filter"></div>
+            <div class="news-items">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+        <div class="calendar-sidebar">
+            <div class="calendar-header">
+                <button class="nav-btn prev">◀</button>
+                <div class="current-month"></div>
+                <button class="nav-btn next">▶</button>
+            </div>
+            <div class="calendar">
+                <div class="weekdays">
+                    <div>日</div>
+                    <div>一</div>
+                    <div>二</div>
+                    <div>三</div>
+                    <div>四</div>
+                    <div>五</div>
+                    <div>六</div>
+                </div>
+                <div class="days"></div>
+            </div>
+            <div class="category-list"></div>
+        </div>
+    </div>
+    <script>
+        // 当前选中的筛选条件
+        let currentFilter = '全部';
+        let currentDate = new Date();
+
+        // API 基础URL - 始终使用 3000 端口的服务器
+        const API_BASE_URL = window.API_CONFIG.baseURL;
+
+        // 调试函数
+        function debug(message, data) {
+            console.log(`[Debug] ${message}:`, data);
+        }
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', () => {
+            debug('页面加载完成');
+            initCalendar();
+            refreshData();
+        });
+
+        // 初始化筛选按钮
+        function initFilters(categories = []) {
+            debug('初始化筛选按钮', categories);
+            const filterContainer = document.querySelector('.filter');
+            if (!filterContainer) {
+                console.error('找不到筛选按钮容器');
+                return;
+            }
+            filterContainer.innerHTML = '';
+
+            // 添加"全部"按钮
+            const allButton = document.createElement('a');
+            allButton.href = '#';
+            allButton.className = 'filter-btn' + (currentFilter === '全部' ? ' active' : '');
+            allButton.textContent = '全部';
+            filterContainer.appendChild(allButton);
+
+            // 为每个分类添加按钮
+            categories.forEach(category => {
+                if (!category || !category.type) return;
+                const button = document.createElement('a');
+                button.href = '#';
+                button.className = 'filter-btn' + (currentFilter === category.type ? ' active' : '');
+                button.textContent = category.type;
+                filterContainer.appendChild(button);
+            });
+
+            // 添加点击事件
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const activeBtn = document.querySelector('.filter-btn.active');
+                    if (activeBtn) {
+                        activeBtn.classList.remove('active');
+                    }
+                    btn.classList.add('active');
+                    currentFilter = btn.textContent;
+                    refreshData();
+                });
+            });
+        }
+
+        // 获取日历数据
+        async function fetchCalendarData(year, month, day) {
+            try {
+                const params = new URLSearchParams();
+                if (year) params.append('year', year);
+                if (month) params.append('month', month);
+                if (day) params.append('day', day);
+                if (currentFilter !== '全部') params.append('category', currentFilter);
+
+                const url = `${API_BASE_URL}/api/calendar?${params.toString()}`;
+                debug('请求URL', url);
+
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                debug('服务器响应', result);
+                
+                if (result.code === 0) {
+                    displayCalendarData(result.data || []);
+                    if (result.categories && Array.isArray(result.categories)) {
+                        initFilters(result.categories);
+                        updateCategories(result.categories);
+                    }
+                } else {
+                    console.error('获取日历数据失败:', result.message);
+                    displayError('获取数据失败，请稍后重试');
+                }
+            } catch (error) {
+                console.error('请求日历数据出错:', error);
+                displayError('网络错误，请检查连接');
+            }
+        }
+
+        // 更新分类统计
+        function updateCategories(categories = []) {
+            debug('更新分类统计', categories);
+            const categoryList = document.querySelector('.category-list');
+            if (!categoryList) {
+                console.error('找不到分类列表容器');
+                return;
+            }
+            categoryList.innerHTML = '';
+
+            const categoryColors = {
+                '重要公告': 'var(--up-color)',
+                '项目进展': 'var(--primary-color)',
+                '数据分析': 'var(--down-color)'
+            };
+
+            // 添加"全部"选项
+            const allCategoryItem = document.createElement('label');
+            allCategoryItem.className = 'category-item';
+            const totalCount = categories.reduce((sum, cat) => sum + (cat.count || 0), 0);
+            allCategoryItem.innerHTML = `
+                <input type="checkbox" checked>
+                <span class="category-color" style="background: var(--primary-color)"></span>
+                <span class="category-name">全部</span>
+                <span class="category-count">${totalCount}</span>
+            `;
+            categoryList.appendChild(allCategoryItem);
+
+            // 添加其他分类
+            categories.forEach(category => {
+                if (!category || !category.type) return;
+                const categoryItem = document.createElement('label');
+                categoryItem.className = 'category-item';
+                categoryItem.innerHTML = `
+                    <input type="checkbox" ${currentFilter === category.type ? 'checked' : ''}>
+                    <span class="category-color" style="background: ${categoryColors[category.type] || 'var(--primary-color)'}"></span>
+                    <span class="category-name">${category.type}</span>
+                    <span class="category-count">${category.count || 0}</span>
+                `;
+                categoryList.appendChild(categoryItem);
+
+                // 添加点击事件
+                categoryItem.addEventListener('click', () => {
+                    currentFilter = category.type;
+                    refreshData();
+                });
+            });
+
+            // 为"全部"添加点击事件
+            allCategoryItem.addEventListener('click', () => {
+                currentFilter = '全部';
+                refreshData();
+            });
+        }
+
+        // 显示错误信息
+        function displayError(message) {
+            debug('显示错误信息', message);
+            const newsItems = document.querySelector('.news-items');
+            if (newsItems) {
+                newsItems.innerHTML = `<div class="error-message">${message}</div>`;
+                const newsCount = document.querySelector('.news-count');
+                if (newsCount) {
+                    newsCount.textContent = '加载失败';
+                }
+            }
+        }
+
+        // 显示日历数据
+        function displayCalendarData(data = []) {
+            debug('显示日历数据', data);
+            const newsItems = document.querySelector('.news-items');
+            if (!newsItems) {
+                console.error('找不到新闻列表容器');
+                return;
+            }
+            newsItems.innerHTML = '';
+
+            // 更新日期显示
+            const dateHeader = document.querySelector('.date');
+            if (dateHeader) {
+                dateHeader.textContent = formatDate(currentDate);
+            }
+
+            // 更新消息数量
+            const newsCount = document.querySelector('.news-count');
+            if (newsCount) {
+                newsCount.textContent = `有${data.length}条讯息`;
+            }
+
+            if (!Array.isArray(data) || data.length === 0) {
+                newsItems.innerHTML = '<div class="no-data">暂无数据</div>';
+                return;
+            }
+
+            // 显示新闻列表
+            data.forEach(item => {
+                if (!item) return;
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                
+                try {
+                    const date = new Date(item.datetime);
+                    const time = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+                    
+                    newsItem.innerHTML = `
+                        <div class="time">${time}</div>
+                        <div class="title">${item.title || '无标题'}</div>
+                        <div class="desc">${item.content || '无描述'}</div>
+                        <div class="source">
+                            <a href="${item.source_url || '#'}" target="_blank" class="source-name">查看原文</a>
+                            <div class="stats">
+                                <span class="stat-item">
+                                    <span class="rating">评分: ${item.score || '0'}</span>
+                                </span>
+                                <span class="stat-item">
+                                    <span class="week-day">星期${item.weekday || '未知'}</span>
+                                </span>
+                                <span class="stat-item">
+                                    <span class="type">${item.type || '未分类'}</span>
+                                </span>
+                                ${item.related_coins ? `
+                                <span class="stat-item">
+                                    <span class="coins">相关币种: ${item.related_coins}</span>
+                                </span>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                    
+                    if (item.importance === 1) {
+                        newsItem.classList.add('important');
+                    }
+                    
+                    newsItems.appendChild(newsItem);
+                } catch (error) {
+                    console.error('处理新闻项时出错:', error);
+                }
+            });
+        }
+
+        // 刷新数据
+        async function refreshData() {
+            debug('刷新数据');
+            const year = currentDate.getFullYear();
+            const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+            const day = currentDate.getDate().toString().padStart(2, '0');
+            await fetchCalendarData(year, month, day);
+        }
+
+        // 格式化日期显示
+        function formatDate(date) {
+            const days = ['日', '一', '二', '三', '四', '五', '六'];
+            return `${date.getMonth() + 1}月${date.getDate()}日 星期${days[date.getDay()]}`;
+        }
+
+        // 初始化日历
+        function initCalendar() {
+            debug('初始化日历');
+            const daysContainer = document.querySelector('.days');
+            if (!daysContainer) {
+                console.error('找不到日历容器');
+                return;
+            }
+
+            function renderCalendar() {
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                
+                // 更新月份显示
+                const currentMonthElement = document.querySelector('.current-month');
+                if (currentMonthElement) {
+                    currentMonthElement.textContent = `${currentDate.getFullYear()}年${currentDate.getMonth() + 1}月`;
+                }
+
+                daysContainer.innerHTML = '';
+                
+                // 添加上个月的天数
+                for (let i = 0; i < firstDay.getDay(); i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'day prev-month';
+                    daysContainer.appendChild(dayElement);
+                }
+                
+                // 添加当前月的天数
+                for (let i = 1; i <= lastDay.getDate(); i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'day';
+                    dayElement.textContent = i;
+                    
+                    if (i === currentDate.getDate() &&
+                        currentDate.getMonth() === new Date().getMonth() &&
+                        currentDate.getFullYear() === new Date().getFullYear()) {
+                        dayElement.classList.add('current');
+                    }
+                    
+                    dayElement.addEventListener('click', () => {
+                        currentDate.setDate(i);
+                        refreshData();
+                        renderCalendar();
+                    });
+                    
+                    daysContainer.appendChild(dayElement);
+                }
+            }
+
+            // 添加导航按钮事件
+            const prevButton = document.querySelector('.nav-btn.prev');
+            const nextButton = document.querySelector('.nav-btn.next');
+            
+            if (prevButton) {
+                prevButton.addEventListener('click', () => {
+                    currentDate.setMonth(currentDate.getMonth() - 1);
+                    renderCalendar();
+                    refreshData();
+                });
+            }
+            
+            if (nextButton) {
+                nextButton.addEventListener('click', () => {
+                    currentDate.setMonth(currentDate.getMonth() + 1);
+                    renderCalendar();
+                    refreshData();
+                });
+            }
+
+            renderCalendar();
+        }
+    </script>
+</body>
+</html> 

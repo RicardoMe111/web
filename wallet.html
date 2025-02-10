@@ -1,0 +1,53 @@
+<div class="list-content"></div>
+
+<!-- 将脚本移动到 body 结束标签之前 -->
+<script>
+    class WalletList {
+        constructor() {
+            this.init();
+        }
+
+        init() {
+            fetch(`${window.API_CONFIG.baseURL}/wallets`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 0) {
+                        this.renderTable(data.data);
+                    } else {
+                        console.error('获取数据失败:', data.message);
+                    }
+                })
+                .catch(error => console.error('请求失败:', error));
+        }
+
+        renderTable(wallets) {
+            const listContent = document.querySelector('.list-content');
+            listContent.innerHTML = '';
+
+            wallets.forEach(wallet => {
+                const div = document.createElement('div');
+                div.className = 'list-item';
+                div.innerHTML = `
+                    <div class="rank">${wallet.rank}</div>
+                    <div class="name">
+                        <!-- <img src="images/wallets/${wallet.image}" alt="${wallet.name}"> -->
+                        <span>${wallet.name}</span>
+                    </div>
+                    <div class="decentralized">${wallet.decentralized ? '<i class="icon-check"></i>' : '<i class="icon-close"></i>'}</div>
+                    <div class="platform">${wallet.supported_types}</div>
+                    <div class="chains">${wallet.supported_coins}</div>
+                    <div class="storage">${wallet.key_storage}</div>
+                    <div class="source">${wallet.open_source}</div>
+                    <div class="type">${wallet.type}</div>
+                    <div class="multi-sig">${wallet.multi_sig ? '<i class="icon-check"></i>' : '<i class="icon-close"></i>'}</div>
+                    <div class="services">${wallet.services}</div>
+                    <div class="score">${wallet.score}</div>
+                `;
+                listContent.appendChild(div);
+            });
+        }
+    }
+
+    // 初始化 WalletList
+    new WalletList();
+</script> 

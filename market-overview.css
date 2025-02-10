@@ -1,0 +1,674 @@
+/* 市场概览样式 */
+.market-overview {
+    max-width: 1440px;
+    margin: 0 auto 24px;
+}
+
+.market-overview .card {
+    background: var(--bg-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s;
+    overflow: hidden;
+    position: relative;
+    margin-top: -4px;
+}
+
+.market-overview .card::before {
+    display: none;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    position: relative;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-header h3::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.time-select select {
+    padding: 2px 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    appearance: none;
+    padding-right: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+}
+
+.time-select select:hover {
+    border-color: var(--primary-color);
+    background-color: var(--bg-secondary);
+}
+
+/* 统计卡片网格布局 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.stats-grid::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--border-color),
+        transparent
+    );
+}
+
+/* 统计卡片样式 */
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 8px;
+    background: var(--bg-color);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s;
+    border: 1px solid var(--border-color);
+    min-height: 72px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* 卡片装饰效果 */
+.stat-card::after {
+    display: none;
+}
+
+.stat-card:hover::after {
+    opacity: 1;
+}
+
+/* 卡片内容布局 */
+.stat-card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    gap: 4px;
+}
+
+/* 卡片头部样式 */
+.stat-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.stat-card-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+    transition: all 0.3s;
+}
+
+.stat-card-info {
+    display: flex;
+    gap: 8px;
+    margin-top: 1px;
+}
+
+.info-item {
+    font-size: 10px;
+    color: var(--text-secondary);
+    padding: 0px 3px;
+    background: var(--bg-secondary);
+    border-radius: 3px;
+    transition: all 0.3s;
+    position: relative;
+    padding-left: 12px;
+}
+
+.info-item::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+}
+
+/* 数值样式 */
+.stat-card .value {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: DIN, Roboto, sans-serif;
+    letter-spacing: -0.5px;
+    margin: 0;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(to right,
+        var(--text-color) 0%,
+        var(--text-color) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.stat-card .sub-value {
+    font-size: 10px;
+    color: var(--text-secondary);
+    opacity: 0.8;
+    margin-top: -1px;
+}
+
+/* 卡片底部样式 */
+.stat-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1px;
+    padding-top: 4px;
+    position: relative;
+}
+
+.stat-card-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -12px;
+    right: -12px;
+    height: 1px;
+    background: var(--border-color);
+    opacity: 0.1;
+}
+
+.stat-card .change {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 0px 5px;
+    border-radius: 4px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.change.up {
+    color: var(--up-color);
+    background: rgba(0, 184, 151, 0.1);
+}
+
+.change.down {
+    color: var(--down-color);
+    background: rgba(255, 87, 87, 0.1);
+}
+
+.change::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.change.up::before {
+    border-width: 0 4px 5px 4px;
+    border-color: transparent transparent var(--up-color) transparent;
+}
+
+.change.down::before {
+    border-width: 5px 4px 0 4px;
+    border-color: var(--down-color) transparent transparent transparent;
+}
+
+.change::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.change:hover::after {
+    opacity: 1;
+}
+
+.stat-card .trend {
+    font-size: 10px;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* 卡片类型特定样式 */
+.stat-card.market-cap {
+    border-left: 2px solid #2962FF;
+}
+
+.stat-card.volume {
+    border-left: 2px solid #00B897;
+}
+
+.stat-card.defi {
+    border-left: 2px solid #ED4B82;
+}
+
+/* 悬停效果增强 */
+.stat-card:hover .info-item {
+    background: var(--bg-color);
+    transform: translateY(-1px);
+}
+
+.stat-card:hover .change {
+    transform: scale(1.05);
+}
+
+.stat-card:hover .trend {
+    opacity: 0.9;
+}
+
+/* 添加图表背景 */
+.stat-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(180deg,
+        transparent,
+        rgba(255, 255, 255, 0.05)
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.stat-card:hover::before {
+    opacity: 1;
+}
+
+/* 图表容器样式 */
+.stat-chart {
+    height: 24px;
+    margin: 1px 0;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--bg-secondary);
+}
+
+.stat-chart::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.stat-card:hover .stat-chart {
+    opacity: 1;
+}
+
+.stat-card:hover .stat-chart::after {
+    opacity: 1;
+}
+
+/* 额外信息样式 */
+.extra-info {
+    font-size: 10px;
+    color: var(--text-secondary);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+}
+
+.stat-card:hover .extra-info {
+    opacity: 0.7;
+    transform: translateY(0);
+}
+
+/* 信息标签增强 */
+.info-item {
+    position: relative;
+    padding-left: 12px;
+}
+
+.info-item::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+}
+
+/* 数值动画效果 */
+.stat-card .value {
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover .value {
+    transform: scale(1.01);
+}
+
+.stat-card .value::after {
+    display: none;
+}
+
+.stat-card:hover .value::after {
+    opacity: 0.1;
+    transform: scaleX(1);
+}
+
+/* 卡片类型特定样式增强 */
+.stat-card.market-cap .stat-card-icon {
+    color: #2962FF;
+    background: var(--bg-secondary);
+}
+
+.stat-card.volume .stat-card-icon {
+    color: #00B897;
+    background: var(--bg-secondary);
+}
+
+.stat-card.defi .stat-card-icon {
+    color: #ED4B82;
+    background: var(--bg-secondary);
+}
+
+/* 数值更新动画效果 */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.stat-card .value.updating {
+    animation: pulse 0.5s ease-out;
+}
+
+/* 时间选择器样式优化 */
+.time-select {
+    position: relative;
+}
+
+.time-select::after {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--text-secondary);
+    border-bottom: 2px solid var(--text-secondary);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.time-select:hover::after {
+    opacity: 1;
+}
+
+/* 图表交互效果增强 */
+.stat-chart {
+    cursor: crosshair;
+}
+
+.stat-chart:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    transition: transform 0.1s;
+}
+
+.stat-chart::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 3px 6px;
+    background: var(--text-color);
+    color: #fff;
+    font-size: 11px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.stat-chart:hover::before {
+    opacity: 1;
+    top: -20px;
+}
+
+/* 市场概览响应式设计 */
+@media screen and (max-width: 1440px) {
+    .market-overview {
+        max-width: 100%;
+        margin: 0 16px 24px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .market-overview {
+        margin: 0 12px 20px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 12px;
+    }
+    
+    .stat-card {
+        min-height: 80px;
+    }
+    
+    .stat-card .value {
+        font-size: 15px;
+    }
+    
+    .stat-card-info {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .market-overview {
+        margin: 0 8px 16px;
+    }
+    
+    .card-header {
+        padding: 8px;
+    }
+    
+    .card-header h3 {
+        font-size: 13px;
+    }
+    
+    .card-header h3::before {
+        width: 2px;
+        height: 12px;
+    }
+    
+    .time-select select {
+        font-size: 11px;
+        padding: 1px 20px 1px 4px;
+    }
+    
+    .stats-grid {
+        padding: 8px;
+        gap: 8px;
+    }
+    
+    .stat-card {
+        padding: 8px;
+        min-height: 70px;
+    }
+    
+    .stat-card-icon {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .stat-card .value {
+        font-size: 14px;
+    }
+    
+    .stat-card .sub-value {
+        font-size: 9px;
+    }
+    
+    .stat-card .change {
+        font-size: 11px;
+        padding: 0px 4px;
+    }
+    
+    .stat-card .trend {
+        font-size: 9px;
+    }
+    
+    .info-item {
+        font-size: 9px;
+        padding: 0px 2px 0px 10px;
+    }
+    
+    .info-item::before {
+        left: 3px;
+        width: 3px;
+        height: 3px;
+    }
+    
+    .stat-chart {
+        height: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .market-overview {
+        margin: 0 6px 12px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 6px;
+    }
+    
+    .stat-card {
+        min-height: 65px;
+    }
+    
+    .stat-card-content {
+        gap: 2px;
+    }
+    
+    .stat-card-footer {
+        margin-top: 2px;
+    }
+    
+    .extra-info {
+        display: none;
+    }
+    
+    .stat-card-info {
+        margin-top: 0;
+    }
+    
+    .stat-chart {
+        height: 16px;
+        margin: 2px 0;
+    }
+}
+
+/* 暗色主题适配 */
+@media (prefers-color-scheme: dark) {
+    .stat-card {
+        background: var(--bg-secondary);
+    }
+    
+    .stat-chart {
+        background: rgba(255, 255, 255, 0.03);
+    }
+    
+    .info-item {
+        background: rgba(255, 255, 255, 0.05);
+    }
+} 

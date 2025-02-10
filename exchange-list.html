@@ -1,0 +1,95 @@
+<div class="exchange-list">
+    <div class="data-table">
+        <div class="table-header">
+            <div class="filter-options">
+                <div class="main-filters">
+                    <!-- 主导航项 -->
+                    <div class="nav-items">
+                        <a href="#" class="filter-item active">全球交易所综合排行榜</a>
+                        <a href="#" class="filter-item">期货</a>
+                        <a href="#" class="filter-item">期权</a>
+                        <a href="#" class="filter-item">DEX</a>
+                        <a href="#" class="filter-item">OTC</a>
+                    </div>
+                    <!-- 帮助链接 -->
+                    <a href="#" class="filter-item help">
+                        <i class="icon-help"></i>
+                        了解ExRank排行算法
+                    </a>
+                </div>
+             
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th data-sort="name">交易平台</th>
+                        <th data-sort="exRank">
+                            ExRank
+                          
+                        </th>
+                        <th data-sort="volume24h">24H额(¥)</th>
+                        <th data-sort="volumeChange">24H涨跌</th>
+                        <th data-sort="assets">资产(¥)</th>
+                        <th data-sort="pairCount">交易对(个)</th>
+                        <th>
+                            人气指数
+                     
+                        </th>
+                        <th>7天成交走势</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 数据行将由JavaScript动态生成 -->
+                    <tr class="loading-placeholder">
+                        <td colspan="9">
+                            <div class="loading-animation">
+                                <div class="loading-spinner"></div>
+                                <span>正在加载数据...</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch(`${window.API_CONFIG.baseURL}/exchanges`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 0) {
+                    renderTable(data.data);
+                } else {
+                    console.error('获取数据失败:', data.message);
+                }
+            })
+            .catch(error => console.error('请求失败:', error));
+
+        function renderTable(exchanges) {
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+
+            exchanges.forEach(exchange => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${exchange.id}</td>
+                    <td>${exchange.name}</td>
+                    <td>${exchange.exrank}</td>
+                    <td>${exchange.volume_24h}</td>
+                    <td>${exchange.change_24h}</td>
+                    <td>${exchange.assets}</td>
+                    <td>${exchange.pairs}</td>
+                    <td>${exchange.popularity}</td>
+                    <td>N/A</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    });
+</script> 

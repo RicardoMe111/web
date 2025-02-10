@@ -1,0 +1,207 @@
+/* 公告组件容器 */
+.announcements-widget {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary);
+    border-radius: 8px;
+}
+
+/* 公告头部 */
+.widget-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-primary);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.widget-header h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.widget-header h3::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: var(--link-color);
+    border-radius: 1.5px;
+}
+
+.view-all {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 12px;
+    opacity: 0.8;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.view-all:hover {
+    opacity: 1;
+    color: var(--link-color);
+}
+
+.view-all::after {
+    content: '→';
+    font-family: monospace;
+    transition: transform 0.2s;
+}
+
+.view-all:hover::after {
+    transform: translateX(2px);
+}
+
+/* 公告列表 */
+.announcement-list {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    padding: 4px 0;
+}
+
+/* 公告项样式 */
+.announcement-item {
+    display: flex;
+    padding: 6px 16px;
+    gap: 8px;
+    min-height: 28px;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.announcement-item:hover {
+    background: var(--hover-bg);
+    padding-left: 18px;
+}
+
+/* 时间轴样式 */
+.time-line {
+    width: 36px;
+    padding-right: 10px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.time {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    opacity: 0.8;
+    position: relative;
+    padding-right: 16px;
+}
+
+/* 时间轴点和线 */
+.time::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    transform: translateY(-50%);
+    opacity: 0.4;
+    transition: all 0.2s;
+}
+
+.time::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 1.5px;
+    width: 1px;
+    height: calc(100% + 16px);
+    background: var(--text-secondary);
+    opacity: 0.15;
+}
+
+.announcement-item:last-child .time::before {
+    display: none;
+}
+
+/* 悬停效果 */
+.announcement-item:hover .time {
+    color: var(--link-color);
+}
+
+.announcement-item:hover .time::after {
+    background: var(--link-color);
+    opacity: 0.8;
+    transform: translateY(-50%) scale(1.2);
+}
+
+/* 公告内容 */
+.announcement-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.exchange-name {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 3px;
+    opacity: 0.8;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.announcement-item:hover .exchange-name {
+    opacity: 1;
+    color: var(--link-color);
+}
+
+.title {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.2s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.announcement-item:hover .title {
+    color: var(--link-color);
+}
+
+/* 加载更多 */
+.load-more {
+    padding: 10px 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.2s;
+    background: var(--bg-primary);
+    position: sticky;
+    bottom: 0;
+}
+
+.load-more:hover {
+    opacity: 1;
+    color: var(--link-color);
+} 

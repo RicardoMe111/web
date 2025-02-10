@@ -1,0 +1,1064 @@
+/* 钱包列表容器 */
+.wallet-list {
+    background: var(--bg-primary);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+/* 分类标签 */
+.category-tabs {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+.category-tabs .tab {
+    padding: 6px 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.category-tabs .tab.active {
+    background: var(--link-color);
+    color: #fff;
+}
+
+/* 公链筛选按钮样式优化 */
+.chain-filter {
+    margin-left: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg-primary);
+    z-index: 100;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.chain-filter:hover {
+    border-color: var(--link-color);
+    color: var(--link-color);
+}
+
+.chain-filter .icon-arrow-down {
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.chain-filter.active .icon-arrow-down {
+    transform: rotate(180deg);
+}
+
+/* 下拉菜单样式优化 */
+.chain-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    width: 200px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s;
+    z-index: 101;
+}
+
+.chain-filter.active .chain-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* 选项列表样式 */
+.chain-list {
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 4px 0;
+}
+
+.chain-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 13px;
+}
+
+.chain-option:hover {
+    background: var(--hover-bg);
+}
+
+/* 公链图标样式 */
+.chain-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 500;
+    color: #fff;
+}
+
+/* 各公链的特定颜色 */
+.chain-icon.btc { background: #F7931A; }
+.chain-icon.eth { background: #627EEA; }
+.chain-icon.bsc { background: #F3BA2F; color: #000; }
+.chain-icon.sol { background: #14F195; color: #000; }
+.chain-icon.avax { background: #E84142; }
+.chain-icon.matic { background: #8247E5; }
+.chain-icon.dot { background: #E6007A; }
+.chain-icon.near { background: #000000; }
+.chain-icon.atom { background: #2E3148; }
+.chain-icon.ftm { background: #13B5EC; }
+.chain-icon.algo { background: #000000; }
+
+/* 列表头部 */
+.list-header {
+    display: grid;
+    grid-template-columns: 50px 160px 70px 120px 80px 100px 100px 100px 100px 120px 80px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+/* 列表内容 */
+.list-content {
+    padding: 0;
+}
+
+.list-item {
+    display: grid;
+    grid-template-columns: 50px 160px 70px 120px 80px 100px 100px 100px 100px 120px 80px;
+    padding: 14px 16px;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.list-item:hover {
+    background: var(--hover-bg);
+    transform: translateX(6px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 排名样式 */
+.rank {
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* 名称样式 */
+.name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 16px;
+}
+
+.name img {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.name span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* 链标签样式 */
+.chain {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.chain-tag {
+    padding: 1px 6px;
+    background: rgba(24, 144, 255, 0.08);
+    color: #1890ff;
+    border-radius: 2px;
+    font-size: 14px;
+    transition: transform 0.2s;
+}
+
+.chain-tag:hover {
+    transform: translateY(-1px);
+}
+
+.more-chains {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* 类型样式 */
+.type {
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* 用户数样式 */
+.users {
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-primary);
+}
+
+/* 交易额样式 */
+.volume {
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* 涨跌幅样式 */
+.change {
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+}
+
+.change.up {
+    color: var(--up-color);
+}
+
+.change.down {
+    color: var(--down-color);
+}
+
+/* 图标样式 */
+.icon-check {
+    color: var(--up-color);
+    font-size: 18px;
+    text-shadow: 0 0 8px rgba(82, 196, 26, 0.2);
+    font-weight: bold;
+}
+
+.icon-close {
+    color: var(--down-color);
+    font-size: 12px;
+    text-shadow: 0 0 8px rgba(245, 34, 45, 0.2);
+    font-weight: bold;
+}
+
+/* 服务标签 */
+.service-tag {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.service-tag:nth-child(1) {
+    background: rgba(24, 144, 255, 0.08);
+    color: #1890ff;
+}
+
+.service-tag:nth-child(2) {
+    background: rgba(82, 196, 26, 0.08);
+    color: #52c41a;
+}
+
+.service-tag:nth-child(3) {
+    background: rgba(245, 34, 45, 0.08);
+    color: #ff4d4f;
+}
+
+/* 评分样式 */
+.score {
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-primary);
+    text-align: center;
+    position: relative;
+}
+
+.score::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    transform: translateY(-50%);
+    opacity: 0.3;
+    box-shadow: 0 0 8px currentColor;
+}
+
+/* 平台图标样式 */
+.platform {
+    display: flex;
+    gap: 12px;
+    color: var(--text-secondary);
+    padding-left: 8px;
+}
+
+.platform i {
+    font-size: 14px;
+    transition: all 0.2s;
+    opacity: 0.7;
+}
+
+.platform i:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+/* 服务标签样式更新 */
+.service-tag:nth-child(3) {
+    background: rgba(245, 34, 45, 0.1);
+    color: #ff4d4f;
+}
+
+/* 列表项悬停效果 */
+.list-item:hover {
+    background: var(--hover-bg);
+    transform: translateX(4px);
+    box-shadow: 0 1px 2px var(--shadow-color);
+}
+
+.list-item:hover .name span {
+    color: var(--link-color);
+}
+
+.list-item:hover .service-tag {
+    transform: translateY(-1px);
+}
+
+/* 评分样式优化 */
+.score {
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+}
+
+.score:hover {
+    color: var(--link-color);
+}
+
+/* 排序功能样式 */
+.sortable {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.sortable:hover {
+    background: var(--hover-bg);
+    color: var(--link-color);
+}
+
+.icon-sort {
+    font-size: 12px;
+    opacity: 0.5;
+    transition: all 0.2s;
+}
+
+.sortable:hover .icon-sort {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* 分页样式 */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.page-info {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.page-size {
+    padding: 4px 8px;
+    margin: 0 6px;
+}
+
+.page-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.page-btn {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.page-btn:hover:not(:disabled) {
+    border-color: var(--link-color);
+    color: var(--link-color);
+}
+
+.page-btn.active {
+    background: var(--link-color);
+    border-color: var(--link-color);
+    color: #fff;
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-ellipsis {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    color: var(--text-secondary);
+}
+
+/* 筛选栏样式 */
+.filter-bar {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    background: var(--bg-secondary);
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.filter-label {
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    min-width: 70px;
+}
+
+.filter-option {
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.filter-option:hover {
+    background: var(--hover-bg);
+}
+
+/* 美化复选框 */
+.filter-option input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    position: relative;
+    border: 2px solid var(--border-color);
+    border-radius: 3px;
+    transition: all 0.2s;
+    cursor: pointer;
+    vertical-align: -3px;
+}
+
+.filter-option input[type="checkbox"]:checked {
+    background: var(--link-color);
+    border-color: var(--link-color);
+}
+
+.filter-option input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 4px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* 箭头动画 */
+.icon-arrow-down {
+    transition: transform 0.2s;
+}
+
+.chain-filter.active .icon-arrow-down {
+    transform: rotate(180deg);
+}
+
+/* 公链图标 */
+.chain-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 500;
+    background: var(--bg-secondary);
+}
+
+/* 公链特定颜色 */
+.chain-icon.btc { background: #F7931A; color: #fff; }
+.chain-icon.eth { background: #627EEA; color: #fff; }
+.chain-icon.bsc { background: #F3BA2F; color: #000; }
+.chain-icon.sol { background: #14F195; color: #000; }
+.chain-icon.avax { background: #E84142; color: #fff; }
+.chain-icon.matic { background: #8247E5; color: #fff; }
+.chain-icon.dot { background: #E6007A; color: #fff; }
+.chain-icon.near { background: #000000; color: #fff; }
+.chain-icon.atom { background: #2E3148; color: #fff; }
+.chain-icon.ftm { background: #13B5EC; color: #fff; }
+.chain-icon.algo { background: #000000; color: #fff; }
+.chain-icon.one { background: #00AEE9; color: #fff; }
+
+/* 选中状态优化 */
+.chain-option input[type="checkbox"]:checked + .chain-icon {
+    transform: scale(1.1);
+}
+
+/* 搜索结果高亮 */
+.chain-option .highlight {
+    color: var(--link-color);
+    font-weight: 500;
+}
+
+/* 支持币种样式 */
+.chains {
+    color: var(--text-primary);
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* 存储方式样式 */
+.storage {
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* 开源情况样式 */
+.source {
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* 多重签名样式 */
+.multi-sig {
+    text-align: center;
+}
+
+/* 服务标签样式优化 */
+.services {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    padding: 0 12px;
+}
+
+.service-tag {
+    padding: 2px 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* 评分样式优化 */
+.score {
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-align: center;
+    position: relative;
+}
+
+.score::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    transform: translateY(-50%);
+    opacity: 0.3;
+}
+
+/* 悬停效果优化 */
+.list-item:hover {
+    background: var(--hover-bg);
+    transform: translateX(4px);
+    box-shadow: 0 1px 2px var(--shadow-color);
+}
+
+.list-item:hover .name span {
+    color: var(--link-color);
+}
+
+.list-item:hover .service-tag {
+    transform: translateY(-1px);
+}
+
+/* 排序图标样式优化 */
+.sortable {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.sortable:hover {
+    background: var(--hover-bg);
+    color: var(--link-color);
+}
+
+.icon-sort {
+    font-size: 12px;
+    opacity: 0.5;
+    transition: all 0.2s;
+}
+
+.sortable:hover .icon-sort {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* 各列对齐方式统一 */
+.list-header > div,
+.list-item > div {
+    display: flex;
+    align-items: center;
+}
+
+/* 序号列居中对齐 */
+.list-header .rank,
+.list-item .rank {
+    justify-content: center;
+}
+
+/* 名称列左对齐 */
+.list-header .name,
+.list-item .name {
+    justify-content: flex-start;
+    padding-left: 8px;
+}
+
+/* 去中心化列居中对齐 */
+.list-header .decentralized,
+.list-item .decentralized {
+    justify-content: center;
+}
+
+/* 支持类型列居中对齐 */
+.list-header .platform,
+.list-item .platform {
+    justify-content: center;
+}
+
+/* 支持币种列居中对齐 */
+.list-header .chains,
+.list-item .chains {
+    justify-content: center;
+}
+
+/* 密钥存放列居中对齐 */
+.list-header .storage,
+.list-item .storage {
+    justify-content: center;
+}
+
+/* 代码开源列居中对齐 */
+.list-header .source,
+.list-item .source {
+    justify-content: center;
+}
+
+/* 中心化程度列居中对齐 */
+.list-header .type,
+.list-item .type {
+    justify-content: center;
+}
+
+/* 多重签名列居中对齐 */
+.list-header .multi-sig,
+.list-item .multi-sig {
+    justify-content: center;
+}
+
+/* 额外服务列居中对齐 */
+.list-header .services,
+.list-item .services {
+    justify-content: center;
+}
+
+/* 综合评分列居中对齐 */
+.list-header .score,
+.list-item .score {
+    justify-content: center;
+}
+
+/* 服务标签样式调整 */
+.service-tag {
+    padding: 2px 8px;
+    font-size: 12px;
+}
+
+/* 评分样式调整 */
+.score {
+    font-size: 13px;
+}
+
+/* 名称样式调整 */
+.name span {
+    font-size: 13px;
+}
+
+/* 图标大小调整 */
+.name img {
+    width: 20px;
+    height: 20px;
+}
+
+/* 平台图标大小调整 */
+.platform i {
+    font-size: 14px;
+}
+
+/* 数字类内容加粗 */
+.chains, .volume, .turnover {
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+}
+
+/* 复选框样式 */
+.chain-option input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    position: relative;
+    border: 2px solid var(--border-color);
+    border-radius: 3px;
+    transition: all 0.2s;
+    cursor: pointer;
+    vertical-align: -3px;
+    appearance: none;
+    background: var(--bg-primary);
+}
+
+.chain-option input[type="checkbox"]:checked {
+    background: var(--link-color);
+    border-color: var(--link-color);
+}
+
+.chain-option input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 4px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* 去中心化图标样式 */
+.list-item .decentralized {
+    font-size: 16px;
+}
+
+.list-item .decentralized .text-success {
+    color: #52c41a;
+}
+
+.list-item .decentralized .text-danger {
+    color: #ff4d4f;
+}
+
+/* 中心化程度样式 */
+.list-item .type {
+    color: #666;
+    font-size: 13px;
+}
+
+/* 多重签名样式 */
+.list-item .multi-sig {
+    color: #666;
+    font-size: 13px;
+}
+
+/* 空值样式 */
+.list-item div:empty::after,
+.list-item div:contains("-")::after {
+    content: "-";
+    color: #999;
+}
+
+/* 列表项悬停效果 */
+.list-item:hover {
+    background-color: #f5f5f5;
+}
+
+/* 文本对齐和间距 */
+.list-item div {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-item .name {
+    justify-content: flex-start;
+}
+
+/* 状态图标样式 */
+.status-icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* 调整去中心化和多重签名列的样式 */
+.list-item .decentralized,
+.list-item .multi-sig {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+/* 中心化程度标签样式 */
+.type-tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.type-decentralized {
+    background-color: rgba(82, 196, 26, 0.1);
+    color: #52c41a;
+    border: 1px solid rgba(82, 196, 26, 0.2);
+}
+
+.type-semi {
+    background-color: rgba(250, 173, 20, 0.1);
+    color: #faad14;
+    border: 1px solid rgba(250, 173, 20, 0.2);
+}
+
+.type-centralized {
+    background-color: rgba(245, 34, 45, 0.1);
+    color: #f5222d;
+    border: 1px solid rgba(245, 34, 45, 0.2);
+}
+
+/* 服务标签样式 */
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
+
+.service-tag {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: rgba(24, 144, 255, 0.1);
+    color: #1890ff;
+    border: 1px solid rgba(24, 144, 255, 0.2);
+    white-space: nowrap;
+}
+
+.service-tag:nth-child(2n) {
+    background-color: rgba(82, 196, 26, 0.1);
+    color: #52c41a;
+    border: 1px solid rgba(82, 196, 26, 0.2);
+}
+
+.service-tag:nth-child(3n) {
+    background-color: rgba(250, 173, 20, 0.1);
+    color: #faad14;
+    border: 1px solid rgba(250, 173, 20, 0.2);
+}
+
+/* 调整列宽度 */
+.list-item .type,
+.list-header .type {
+    min-width: 100px;
+}
+
+.list-item .services,
+.list-header .services {
+    min-width: 150px;
+}
+
+/* 分页容器样式 */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+}
+
+/* 分页信息样式 */
+.page-info {
+    display: none;
+}
+
+/* 分页按钮组 */
+.page-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg-secondary);
+    padding: 4px;
+    border-radius: 6px;
+}
+
+/* 页码列表 */
+.page-list {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 分页按钮基础样式 */
+.page-btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 页码按钮 */
+.page-list .page-btn {
+    font-weight: 500;
+}
+
+/* 上一页/下一页按钮 */
+.page-btn.prev,
+.page-btn.next {
+    color: var(--text-secondary);
+    padding: 0 12px;
+    gap: 4px;
+}
+
+.page-btn.prev i,
+.page-btn.next i {
+    font-size: 14px;
+}
+
+.page-btn.prev span,
+.page-btn.next span {
+    font-size: 13px;
+}
+
+/* 按钮悬浮效果 */
+.page-btn:not(.active):not(.disabled):hover {
+    background: var(--bg-hover);
+    color: var(--link-color);
+}
+
+/* 激活状态 */
+.page-btn.active {
+    background: var(--link-color);
+    color: #fff;
+}
+
+/* 禁用状态 */
+.page-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .pagination-container {
+        padding: 16px 0;
+    }
+    
+    .page-btn {
+        min-width: 28px;
+        height: 28px;
+    }
+    
+    .page-btn.prev,
+    .page-btn.next {
+        padding: 0 8px;
+    }
+    
+    .page-btn.prev span,
+    .page-btn.next span {
+        font-size: 12px;
+    }
+} 

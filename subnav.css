@@ -1,0 +1,85 @@
+/* 二级导航栏样式 */
+.subnav {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 999;
+}
+
+/* 导航容器 */
+.subnav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* 左侧导航链接 */
+.subnav .leftSide {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 32px; /* 增加间距 */
+}
+
+/* 导航链接样式 */
+.subnav .link {
+    height: 100%;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s;
+    white-space: nowrap;
+    position: relative;
+}
+
+/* 活动状态 */
+.subnav .link.active {
+    color: var(--link-color);
+}
+
+.subnav .link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--link-color);
+}
+
+/* 搜索框样式 */
+.searchForm {
+    position: relative;
+    width: 300px;
+}
+
+.searchForm input {
+    width: 100%;
+    height: 32px;
+    padding: 0 40px 0 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.searchForm button {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+} 

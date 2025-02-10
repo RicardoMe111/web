@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>币历 - coin1234</title>
+    <!-- CSS 引入 -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="subnav.css">
+    <link rel="stylesheet" href="market-overview.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="icons.css">
+    <link rel="stylesheet" href="calendar.css">
+    
+    <!-- 配置文件 -->
+    <script src="config.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+    <div id="subnav"></div>
+
+    <!-- 主要内容区 -->
+    <div class="page-wrapper">
+        <div id="market-overview"></div>
+        <div class="main-content">
+            <div class="container">
+                <div class="calendar-page">
+                    <!-- 左侧新闻列表 -->
+                    <div class="news-list">
+                        <!-- 新闻列表头部 -->
+                        <div class="news-header">
+                            <div class="date">
+                                <i class="icon-calendar"></i>
+                                <span>2025年1月21日 星期二</span>
+                            </div>
+                            <div class="filter">
+                                <!-- 筛选按钮将由 JS 动态生成 -->
+                            </div>
+                            <div class="news-count">有0条讯息</div>
+                        </div>
+                        
+                        <!-- 新闻列表内容 -->
+                        <div class="news-items">
+                            <!-- 新闻项将由 JS 动态生成 -->
+                        </div>
+                    </div>
+
+                    <!-- 右侧边栏 -->
+                    <div class="calendar-sidebar">
+                        <!-- 日历组件 -->
+                        <div class="calendar-widget">
+                            <div class="widget-header">
+                                <h3>日历</h3>
+                                <div class="calendar-nav">
+                                    <button class="nav-btn prev">
+                                        <i class="icon-chevron-left"></i>
+                                    </button>
+                                    <span class="current-month">2025年1月</span>
+                                    <button class="nav-btn next">
+                                        <i class="icon-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="weekdays">
+                                    <span>日</span>
+                                    <span>一</span>
+                                    <span>二</span>
+                                    <span>三</span>
+                                    <span>四</span>
+                                    <span>五</span>
+                                    <span>六</span>
+                                </div>
+                                <div class="days">
+                                    <!-- 日期将由 JS 动态生成 -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 事件分类 -->
+                        <div class="event-categories">
+                            <h3>事件分类</h3>
+                            <div class="category-list">
+                                <!-- 分类列表将由 JS 动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <!-- 脚本引入（注意顺序） -->
+    <script src="theme.js"></script>
+    <script src="router.js"></script>
+    <script src="calendar.js"></script>
+</body>
+</html> 

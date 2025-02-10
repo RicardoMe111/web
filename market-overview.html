@@ -1,0 +1,90 @@
+<!-- 市场概览卡片 -->
+<div class="market-overview">
+    <div class="card">
+        <div class="card-header">
+            <h3>市场概览</h3>
+            <div class="time-select">
+                <select>
+                    <option value="24h">24H</option>
+                    <option value="7d">7D</option>
+                    <option value="30d">30D</option>
+                </select>
+            </div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card market-cap">
+                <div class="stat-card-content">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon">
+                            <i class="icon-market-cap"></i>
+                        </div>
+                        <span class="label">总市值</span>
+                        <div class="stat-card-info">
+                            <span class="info-item">BTC: 57.98%</span>
+                            <span class="info-item">ETH: 17.23%</span>
+                            <span class="info-item">Alts: 24.79%</span>
+                        </div>
+                    </div>
+                    <span class="value">$2.1T</span>
+                    <span class="sub-value">≈ ¥15.31万亿</span>
+                    <div class="stat-chart">
+                        <canvas id="marketCapChart" data-tooltip="24小时市值走势"></canvas>
+                    </div>
+                    <div class="stat-card-footer">
+                        <span class="change up">+2.5%</span>
+                        <span class="trend">24h趋势：上涨</span>
+                        <span class="extra-info">30天高点：$2.3T</span>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card volume">
+                <div class="stat-card-content">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon">
+                            <i class="icon-volume"></i>
+                        </div>
+                        <span class="label">24H成交额</span>
+                        <div class="stat-card-info">
+                            <span class="info-item">现货: 68.5%</span>
+                            <span class="info-item">合约: 31.5%</span>
+                        </div>
+                    </div>
+                    <span class="value">$86.5B</span>
+                    <span class="sub-value">≈ ¥630.7亿</span>
+                    <div class="stat-chart">
+                        <canvas id="volumeChart" data-tooltip="24小时成交量走势"></canvas>
+                    </div>
+                    <div class="stat-card-footer">
+                        <span class="change down">-1.2%</span>
+                        <span class="trend">较昨日：下降</span>
+                        <span class="extra-info">7日均值：$92.3B</span>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card defi">
+                <div class="stat-card-content">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon">
+                            <i class="icon-defi"></i>
+                        </div>
+                        <span class="label">DeFi总锁仓量</span>
+                        <div class="stat-card-info">
+                            <span class="info-item">ETH: 62.3%</span>
+                            <span class="info-item">BSC: 15.8%</span>
+                        </div>
+                    </div>
+                    <span class="value">$45.8B</span>
+                    <span class="sub-value">≈ ¥334.1亿</span>
+                    <div class="stat-chart">
+                        <canvas id="defiChart" data-tooltip="24小时DeFi TVL走势"></canvas>
+                    </div>
+                    <div class="stat-card-footer">
+                        <span class="change up">+0.8%</span>
+                        <span class="trend">7日增长：5.2%</span>
+                        <span class="extra-info">历史峰值：$52.1B</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

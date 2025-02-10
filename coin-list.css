@@ -1,0 +1,491 @@
+.data-table {
+    background: var(--card-bg);
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.table-container {
+    padding: 0 8px;
+    overflow-x: auto;
+}
+
+.data-table tbody.loading {
+    position: relative;
+    opacity: 0.6;
+}
+
+.data-table tbody.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.filter-btn {
+    padding: 6px 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.filter-btn.active {
+    background: #f0f2f5;
+    color: #1890ff;
+}
+
+.page-btn {
+    padding: 6px 12px;
+    border: 1px solid #d9d9d9;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-btn:not(:disabled):hover {
+    border-color: #1890ff;
+    color: #1890ff;
+}
+
+/* 添加错误消息样式 */
+.error-message {
+    text-align: center;
+    padding: 40px 0;
+    color: #ff4d4f;
+}
+
+.error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.error-container button {
+    margin-left: 16px;
+    padding: 4px 12px;
+    border: 1px solid #ff4d4f;
+    background: none;
+    color: #ff4d4f;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.error-container button:hover {
+    background: #ff4d4f;
+    color: #fff;
+}
+
+/* 添加表格基础样式 */
+.data-table table {
+    width: 100%;
+    min-width: 1000px;
+    border-collapse: collapse;
+    margin: 8px 0;
+    table-layout: fixed;
+}
+
+.data-table th,
+.data-table td {
+    height: 44px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 16px;
+}
+
+.data-table th {
+    background: var(--bg-secondary);
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.data-table .coin-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-right: 16px;
+}
+
+.data-table .coin-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.data-table .coin-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    object-fit: contain;
+}
+
+.data-table .coin-symbol {
+    color: #999;
+    margin-left: 4px;
+}
+
+.data-table .change.up {
+    color: var(--up-color);
+}
+
+.data-table .change.down {
+    color: var(--down-color);
+}
+
+.data-table .trend-chart {
+    width: 70px;
+    height: 20px;
+    margin: 0 auto;
+}
+
+.data-table .trend-line.up {
+    stroke: #52c41a;
+}
+
+.data-table .trend-line.down {
+    stroke: #ff4d4f;
+}
+
+/* 添加表格头部和底部样式 */
+.table-header {
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.table-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    gap: 8px;
+}
+
+.data-table-footer {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    border-radius: 0 0 8px 8px;
+}
+
+.table-info {
+    color: var(--text-secondary);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.table-info::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: var(--text-secondary);
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px;
+    background: var(--bg-primary);
+    border-radius: 6px;
+}
+
+.page-numbers {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 8px;
+}
+
+.page-btn {
+    height: 32px;
+    min-width: 32px;
+    padding: 0 12px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.page-btn.prev,
+.page-btn.next {
+    font-weight: 500;
+}
+
+.page-btn.number {
+    padding: 0;
+    min-width: 32px;
+    font-family: DIN, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.page-btn.number.active {
+    background: var(--link-color);
+    border-color: var(--link-color);
+    color: #fff;
+    font-weight: 500;
+}
+
+.page-btn:not(:disabled):hover {
+    border-color: var(--link-color);
+    color: var(--link-color);
+    background: var(--bg-hover);
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: var(--text-secondary);
+}
+
+/* 添加图标样式 */
+.page-btn i {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+/* 添加动画效果 */
+.page-btn:not(:disabled):hover i {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .data-table-footer {
+        padding: 12px 16px;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .pagination {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .page-numbers {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: calc(100vw - 200px);
+    }
+}
+
+/* 添加排序样式 */
+.data-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.data-table th[data-sort]:hover {
+    background: #f5f5f5;
+}
+
+.data-table th[data-sort] .icon-sort {
+    margin-left: 4px;
+    font-size: 12px;
+    color: #bfbfbf;
+    transition: all 0.3s;
+}
+
+.data-table th[data-sort].sort-asc .icon-sort {
+    color: #1890ff;
+    transform: rotate(180deg);
+}
+
+.data-table th[data-sort].sort-desc .icon-sort {
+    color: #1890ff;
+}
+
+/* 优化表格样式 */
+.data-table td {
+    white-space: nowrap;
+}
+
+.data-table .price,
+.data-table .volume,
+.data-table .supply {
+    text-align: right;
+}
+
+.data-table .turnover,
+.data-table .change {
+    text-align: right;
+    width: 100px;
+}
+
+.data-table .trend {
+    width: 120px;
+}
+
+/* 添加加载状态样式 */
+.data-table.loading {
+    position: relative;
+    min-height: 200px;
+}
+
+.data-table.loading::after {
+    content: '加载中...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #666;
+}
+
+/* 列宽和对齐方式 */
+/* 序号列 */
+.data-table th:nth-child(1),
+.data-table td:nth-child(1) {
+    width: 50px;
+    text-align: center;
+    padding: 0;
+}
+
+/* 币种列 */
+.data-table th:nth-child(2),
+.data-table td:nth-child(2) {
+    width: 140px;
+    padding-left: 16px;
+    text-align: left;
+}
+
+/* 价格列 */
+.data-table th:nth-child(3),
+.data-table td:nth-child(3) {
+    width: 120px;
+    text-align: right;
+    padding-right: 16px;
+}
+
+/* 市值列 */
+.data-table th:nth-child(4),
+.data-table td:nth-child(4) {
+    width: 120px;
+    text-align: right;
+    padding-right: 16px;
+}
+
+/* 24H成交额列 */
+.data-table th:nth-child(5),
+.data-table td:nth-child(5) {
+    width: 120px;
+    text-align: right;
+    padding-right: 16px;
+}
+
+/* 24H涨跌列 */
+.data-table th:nth-child(6),
+.data-table td:nth-child(6) {
+    width: 120px;
+    text-align: right;
+    padding-right: 16px;
+}
+
+/* 24H换手率列 */
+.data-table th:nth-child(7),
+.data-table td:nth-child(7) {
+    width: 100px;
+    text-align: right;
+    padding-right: 16px;
+}
+
+/* 24H涨跌幅列 */
+.data-table th:nth-child(8),
+.data-table td:nth-child(8) {
+    width: 100px;
+    text-align: right;
+    padding-right: 16px;
+}
+
+/* 走势图列 */
+.data-table th:nth-child(9),
+.data-table td:nth-child(9) {
+    width: 100px;
+    text-align: center;
+    padding: 0;
+}
+
+/* 数字格式化 */
+.price, .volume, .market-cap {
+    font-family: DIN, Roboto, sans-serif;
+}
+
+/* 涨跌幅样式 */
+.change {
+    font-family: DIN, Roboto, sans-serif;
+    font-weight: 500;
+}
+
+.change.down {
+    color: var(--down-color);
+}
+
+.change.up {
+    color: var(--up-color);
+}
+
+/* 走势图样式 */
+.trend-chart {
+    width: 70px;
+    height: 20px;
+    margin: 0 auto;
+}
+
+.trend-line {
+    stroke-width: 1;
+}
+
+.current-page {
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0 2px;
+    min-width: 16px;
+    text-align: center;
+}
+
+.page-total {
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin: 0 2px;
+} 

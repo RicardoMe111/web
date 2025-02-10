@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>coin1234</title>
+    <!-- CSS 引入 -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="subnav.css">
+    <link rel="stylesheet" href="market-overview.css">
+    <link rel="stylesheet" href="coin-list.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="icons.css">
+    <link rel="stylesheet" href="news-feed.css">
+    <link rel="stylesheet" href="exchange-list.css">
+    <link rel="stylesheet" href="wallet-list.css">
+    <link rel="stylesheet" href="calendar.css">
+    <link rel="stylesheet" href="exchange-announcements.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- 配置文件 -->
+    <script src="config.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+    <div id="subnav"></div>
+
+    <!-- 主要内容区 -->
+    <div class="page-wrapper">
+        <div id="market-overview"></div>
+        <div class="main-content">
+            <div class="container">
+                <div class="content-wrapper">
+                    <!-- 左侧内容区域 -->
+                    <div class="left-column">
+                        <!-- 日历页面容器 -->
+                        <div class="calendar-page" style="display: none;">
+                            <!-- 日历内容将由 calendar.js 动态生成 -->
+                        </div>
+                        
+                        <!-- 钱包列表容器 -->
+                        <div class="wallet-list" style="display: none;">
+                            <!-- 钱包列表内容将由 wallet-list.js 动态生成 -->
+                        </div>
+                        
+                        <!-- 交易所列表容器 -->
+                        <div class="exchange-list" style="display: none;">
+                            <!-- 交易所列表内容将由 exchange-list.js 动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 右侧边栏 -->
+                    <div class="right-sidebar">
+                        <!-- 交易所公告组件 -->
+                        <div id="exchange-announcements" style="display: none;"></div>
+                        
+                        <!-- 市场投票和情报快讯组件 -->
+                        <div id="market-vote"></div>
+                        <div id="news-feed"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <!-- 第三方库 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 脚本引入（注意顺序） -->
+    <script src="theme.js"></script>
+    <script src="router.js"></script>
+    <script src="coin-list.js"></script>
+    <script src="exchange-list.js"></script>
+    <script src="wallet-list.js"></script>
+    <script src="calendar.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // 初始化主题管理器和路由
+        document.addEventListener('DOMContentLoaded', () => {
+            window.themeManager = new ThemeManager();
+            window.router = new Router();
+            
+            // 根据当前路由显示相应的页面
+            const path = window.location.pathname;
+            const containers = {
+                '/calendar': '.calendar-page',
+                '/wallets': '.wallet-list',
+                '/exchanges': '.exchange-list'
+            };
+            
+            // 隐藏所有容器
+            Object.values(containers).forEach(selector => {
+                const container = document.querySelector(selector);
+                if (container) container.style.display = 'none';
+            });
+            
+            // 显示当前路由对应的容器
+            const currentContainer = containers[path];
+            if (currentContainer) {
+                const container = document.querySelector(currentContainer);
+                if (container) container.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html> 

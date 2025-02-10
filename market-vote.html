@@ -1,0 +1,68 @@
+<div class="widget market-trends">
+    <h3>市场投票</h3>
+    <div class="chart-container">
+        <svg class="pie-chart" viewBox="0 0 100 100">
+            <defs>
+                <linearGradient id="upGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00B897;stop-opacity:1">
+                        <animate attributeName="stop-color"
+                            values="#00B897;#00D1B2;#00B897"
+                            dur="2s"
+                            repeatCount="indefinite" />
+                    </stop>
+                    <stop offset="100%" style="stop-color:#00D1B2;stop-opacity:1">
+                        <animate attributeName="stop-color"
+                            values="#00D1B2;#00B897;#00D1B2"
+                            dur="2s"
+                            repeatCount="indefinite" />
+                    </stop>
+                </linearGradient>
+                <linearGradient id="downGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#FF5757;stop-opacity:1">
+                        <animate attributeName="stop-color"
+                            values="#FF5757;#FF7676;#FF5757"
+                            dur="2s"
+                            repeatCount="indefinite" />
+                    </stop>
+                    <stop offset="100%" style="stop-color:#FF7676;stop-opacity:1">
+                        <animate attributeName="stop-color"
+                            values="#FF7676;#FF5757;#FF7676"
+                            dur="2s"
+                            repeatCount="indefinite" />
+                    </stop>
+                </linearGradient>
+            </defs>
+            <!-- 背景圆环 -->
+            <circle cx="50" cy="50" r="40" 
+                stroke="#F0F2F5" 
+                stroke-width="20"
+                fill="none"/>
+            <!-- 上涨部分 (57%) -->
+            <circle cx="50" cy="50" r="40"
+                class="up-segment"
+                stroke-dasharray="0 251.2"/>
+            <!-- 下跌部分 (43%) -->
+            <circle cx="50" cy="50" r="40"
+                class="down-segment"
+                stroke-dasharray="0 251.2"
+                transform="rotate(205.2, 50, 50)"/>
+        </svg>
+        <!-- 中心文字 -->
+        <div class="chart-center">
+            <span class="total">100</span>
+            <span class="label">支持率</span>
+        </div>
+    </div>
+    <div class="chart-legend">
+        <div class="legend-item">
+            <span class="dot up"></span>
+            <span class="label">看涨</span>
+            <span class="value">57%</span>
+        </div>
+        <div class="legend-item">
+            <span class="dot down"></span>
+            <span class="label">看跌</span>
+            <span class="value">43%</span>
+        </div>
+    </div>
+</div> 
