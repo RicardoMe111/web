@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     debug('页面加载完成');
     initCalendar();
     refreshData();
+    initNewsDetail();
 });
 
 // 初始化筛选按钮
@@ -178,6 +179,28 @@ function displayCalendarData(data = []) {
             if (item.importance === 1) {
                 newsItem.classList.add('important');
             }
+
+            // 为每个新闻项添加点击事件
+            newsItem.addEventListener('click', (e) => {
+                // 阻止链接的默认点击事件
+                if (e.target.tagName === 'A') {
+                    e.stopPropagation();
+                    return;
+                }
+                
+                const newsData = {
+                    title: item.title || '无标题',
+                    time: time,
+                    source: '查看原文',
+                    sourceUrl: item.source_url || '#',
+                    content: item.content || '无描述',
+                    type: item.type,
+                    score: item.score,
+                    related_coins: item.related_coins,
+                    importance: item.importance
+                };
+                showNewsDetail(newsData);
+            });
             
             newsContainer.appendChild(newsItem);
         } catch (error) {
@@ -407,20 +430,101 @@ function updateCategories(categories = []) {
 
 class Calendar {
     constructor() {
-        // 检查是否在日历页面
-        if (!document.querySelector('.calendar-page')) {
-            console.log('不在日历页面');
-            return;
-        }
-        
         this.currentDate = new Date();
         this.currentFilter = '全部';
+        this.themeObserver = null;
         this.init();
     }
 
     init() {
         this.initCalendar();
+        this.initThemeListener();
         this.fetchCalendarData();
+    }
+
+    initThemeListener() {
+        // 监听系统主题变化
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addListener(this.handleThemeChange.bind(this));
+
+        // 监听手动主题变化
+        this.themeObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'data-theme') {
+                    this.handleThemeChange();
+                }
+            });
+        });
+
+        // 开始观察 html 标签的 data-theme 属性变化
+        const htmlElement = document.documentElement;
+        this.themeObserver.observe(htmlElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+
+        // 初始化时更新一次主题
+        this.handleThemeChange();
+    }
+
+    handleThemeChange() {
+        const calendar = document.querySelector('.calendar-wrapper');
+        if (!calendar) return;
+
+        // 获取当前主题
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isAutoTheme = currentTheme === 'auto';
+
+        // 确定实际使用的主题
+        const isDarkMode = currentTheme === 'dark' || (isAutoTheme && systemDarkMode);
+
+        // 更新主题类
+        calendar.classList.remove('theme-transitioning');
+        calendar.classList.remove('theme-light', 'theme-dark');
+        
+        // 触发重排以确保过渡效果
+        calendar.offsetHeight;
+
+        // 添加过渡类
+        calendar.classList.add('theme-transitioning');
+        calendar.classList.add(isDarkMode ? 'theme-dark' : 'theme-light');
+
+        // 更新日期样式
+        this.updateDayStyles(isDarkMode);
+
+        // 移除过渡类
+        setTimeout(() => {
+            calendar.classList.remove('theme-transitioning');
+        }, 300);
+    }
+
+    updateDayStyles(isDarkMode) {
+        const days = document.querySelectorAll('.calendar-day');
+        const today = new Date();
+        
+        days.forEach(day => {
+            const dayNumber = parseInt(day.textContent);
+            const isToday = dayNumber === today.getDate() &&
+                this.currentDate.getMonth() === today.getMonth() &&
+                this.currentDate.getFullYear() === today.getFullYear();
+            const isSelected = dayNumber === this.currentDate.getDate();
+            
+            // 更新今天的样式
+            day.classList.toggle('today', isToday);
+            
+            // 更新选中状态
+            day.classList.toggle('active', isSelected);
+            
+            // 更新主题相关的样式
+            day.style.setProperty('--day-hover-opacity', isDarkMode ? '0.2' : '0.1');
+            
+            // 为事件添加主题特定的样式
+            const events = day.querySelectorAll('.calendar-event');
+            events.forEach(event => {
+                event.style.setProperty('--event-hover-brightness', isDarkMode ? '1.2' : '1.1');
+            });
+        });
     }
 
     initCalendar() {
@@ -663,6 +767,28 @@ class Calendar {
                 if (item.importance === 1) {
                     newsItem.classList.add('important');
                 }
+
+                // 为每个新闻项添加点击事件
+                newsItem.addEventListener('click', (e) => {
+                    // 阻止链接的默认点击事件
+                    if (e.target.tagName === 'A') {
+                        e.stopPropagation();
+                        return;
+                    }
+                    
+                    const newsData = {
+                        title: item.title || '无标题',
+                        time: time,
+                        source: '查看原文',
+                        sourceUrl: item.source_url || '#',
+                        content: item.content || '无描述',
+                        type: item.type,
+                        score: item.score,
+                        related_coins: item.related_coins,
+                        importance: item.importance
+                    };
+                    this.showNewsDetail(newsData);
+                });
                 
                 newsContainer.appendChild(newsItem);
             } catch (error) {
@@ -774,10 +900,216 @@ class Calendar {
             this.fetchCalendarData();
         });
     }
+
+    // 在组件销毁时清理
+    destroy() {
+        if (this.themeObserver) {
+            this.themeObserver.disconnect();
+            this.themeObserver = null;
+        }
+    }
 }
 
 // 初始化页面
 document.addEventListener('DOMContentLoaded', () => {
     // 创建日历实例
     window.calendar = new Calendar();
-}); 
+});
+
+// 在页面卸载时清理
+window.addEventListener('unload', () => {
+    if (window.calendar) {
+        window.calendar.destroy();
+    }
+});
+
+// 新闻详细页面功能
+function initNewsDetail() {
+    const newsItems = document.querySelectorAll('.news-item');
+    
+    newsItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const newsData = {
+                title: item.querySelector('.title').textContent,
+                time: item.querySelector('.time').textContent,
+                source: item.querySelector('.source-name').textContent,
+                sourceUrl: item.querySelector('.source-name').getAttribute('href'),
+                content: item.querySelector('.desc').textContent,
+                type: item.querySelector('.type')?.textContent,
+                score: item.querySelector('.rating')?.textContent.replace('评分: ', ''),
+                related_coins: item.querySelector('.coins')?.textContent,
+                importance: item.classList.contains('important') ? 1 : 0
+            };
+            this.showNewsDetail(newsData);
+        });
+    });
+}
+
+// 显示新闻详细页面
+function showNewsDetail(newsData) {
+    // 创建详细页面元素
+    const detailElement = document.createElement('div');
+    detailElement.className = 'news-detail';
+    
+    detailElement.innerHTML = `
+        <div class="detail-content">
+            <button class="close-btn">
+                <i class="icon-close"></i>
+            </button>
+            <h1 class="detail-title">${newsData.title}</h1>
+            <div class="detail-meta">
+                <div class="meta-left">
+                    <span class="detail-time">
+                        <i class="icon-time"></i>
+                        ${newsData.time}
+                    </span>
+                    <a href="${newsData.sourceUrl}" class="detail-source" target="_blank">
+                        <i class="icon-link"></i>
+                        ${newsData.source}
+                    </a>
+                </div>
+                <div class="meta-right">
+                    ${newsData.type ? `
+                    <span class="detail-type">
+                        <i class="icon-tag"></i>
+                        ${newsData.type}
+                    </span>` : ''}
+                    ${newsData.score ? `
+                    <span class="detail-score">
+                        <i class="icon-star"></i>
+                        评分：${newsData.score}
+                    </span>` : ''}
+                </div>
+            </div>
+            <div class="detail-body">
+                ${newsData.content.split('\n').map(paragraph => 
+                    paragraph ? `<p>${paragraph}</p>` : ''
+                ).join('')}
+            </div>
+            ${newsData.related_coins ? `
+            <div class="detail-tags">
+                <h3>相关币种</h3>
+                <div class="coin-tags">
+                    ${newsData.related_coins.split(',').map(coin => 
+                        `<span class="coin-tag">${coin.trim()}</span>`
+                    ).join('')}
+                </div>
+            </div>` : ''}
+            <div class="detail-footer">
+                <div class="related-news">
+                    <h3>相关新闻</h3>
+                    <div class="related-list">
+                        <div class="loading">加载中...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // 添加到页面
+    document.body.appendChild(detailElement);
+    
+    // 添加动画类
+    requestAnimationFrame(() => {
+        detailElement.classList.add('active');
+    });
+    
+    // 绑定关闭按钮事件
+    const closeBtn = detailElement.querySelector('.close-btn');
+    closeBtn.addEventListener('click', () => {
+        this.closeNewsDetail(detailElement);
+    });
+    
+    // 点击外部区域关闭
+    detailElement.addEventListener('click', (e) => {
+        if (e.target === detailElement) {
+            this.closeNewsDetail(detailElement);
+        }
+    });
+    
+    // 绑定ESC键关闭
+    const escHandler = function(e) {
+        if (e.key === 'Escape') {
+            this.closeNewsDetail(detailElement);
+            document.removeEventListener('keydown', escHandler);
+        }
+    };
+    document.addEventListener('keydown', escHandler);
+    
+    // 加载相关新闻
+    this.loadRelatedNews(newsData.title).then(relatedNews => {
+        const relatedList = detailElement.querySelector('.related-list');
+        if (!relatedNews || relatedNews.length === 0) {
+            relatedList.innerHTML = '<div class="no-data">暂无相关新闻</div>';
+            return;
+        }
+        
+        relatedList.innerHTML = '';
+        relatedNews.forEach(news => {
+            const relatedItem = document.createElement('div');
+            relatedItem.className = 'related-item';
+            relatedItem.innerHTML = `
+                <div class="title">${news.title}</div>
+                <div class="meta">
+                    <span class="time">
+                        <i class="icon-time"></i>
+                        ${news.time}
+                    </span>
+                    <span class="source">
+                        <i class="icon-source"></i>
+                        ${news.source}
+                    </span>
+                </div>
+            `;
+            relatedList.appendChild(relatedItem);
+            
+            // 为相关新闻添加点击事件
+            relatedItem.addEventListener('click', () => {
+                this.closeNewsDetail(detailElement);
+                this.showNewsDetail(news);
+            });
+        });
+    }).catch(error => {
+        const relatedList = detailElement.querySelector('.related-list');
+        relatedList.innerHTML = '<div class="error">加载相关新闻失败</div>';
+        console.error('加载相关新闻失败:', error);
+    });
+}
+
+// 关闭新闻详细页面
+function closeNewsDetail(detailElement) {
+    detailElement.classList.remove('active');
+    setTimeout(() => {
+        document.body.removeChild(detailElement);
+    }, 300);
+}
+
+// 加载相关新闻
+async function loadRelatedNews(title) {
+    try {
+        // 构建API请求参数
+        const params = new URLSearchParams({
+            title: title,
+            limit: 5 // 限制相关新闻数量
+        });
+
+        const url = `${API_BASE_URL}/related-news?${params.toString()}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        if (result.code === 0 && Array.isArray(result.data)) {
+            return result.data;
+        } else {
+            throw new Error('Invalid response format');
+        }
+    } catch (error) {
+        console.error('获取相关新闻失败:', error);
+        // 如果API调用失败，返回空数组
+        return [];
+    }
+} 

@@ -1,116 +1,191 @@
-<!-- 顶部导航栏 -->
-<nav class="navbar">
-    <div class="preview">
-        <div class="row">
-            <div class="leftSide">
-                <a href="/" class="logo">
-                    <span class="logo-text">COIN1234</span>
-                </a>
-                <div class="stats">
-                    <div class="stat-item">
-                        <span class="value">22502</span>
-                        <span class="label">虚拟币</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="value">$3.26万亿</span>
-                        <span class="label">总市值</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="value">$1038.6亿</span>
-                        <span class="label">总成交额</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="value">57.98%</span>
-                        <span class="label">BTC占比</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="value">¥7.27</span>
-                        <span class="label">USDT场外</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="value">¥7.2975</span>
-                        <span class="label">USD汇率</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="value">96Gwei</span>
-                        <span class="label">ETH Gas</span>
-                    </div>
-                </div>
-            </div>
-            <div class="rightSide">
-                <div class="actions">
-                    <div class="action-item language-switcher">
-                        <i class="icon-language"></i>
-                        <span class="current-lang">简体中文</span>
-                        <i class="icon-arrow-down"></i>
-                        <div class="language-dropdown">
-                            <a href="#" class="lang-item active">
-                                <span class="lang-name">简体中文</span>
-                                <span class="lang-code">zh-CN</span>
-                            </a>
-                            <a href="#" class="lang-item">
-                                <span class="lang-name">繁體中文</span>
-                                <span class="lang-code">zh-TW</span>
-                            </a>
-                            <a href="#" class="lang-item">
-                                <span class="lang-name">English</span>
-                                <span class="lang-code">en-US</span>
-                            </a>
-                            <a href="#" class="lang-item">
-                                <span class="lang-name">日本語</span>
-                                <span class="lang-code">ja-JP</span>
-                            </a>
-                            <a href="#" class="lang-item">
-                                <span class="lang-name">한국어</span>
-                                <span class="lang-code">ko-KR</span>
-                            </a>
-                            <a href="#" class="lang-item">
-                                <span class="lang-name">Español</span>
-                                <span class="lang-code">es-ES</span>
-                            </a>
-                            <a href="#" class="lang-item">
-                                <span class="lang-name">Français</span>
-                                <span class="lang-code">fr-FR</span>
-                            </a>
-                            <a href="#" class="lang-item">
-                                <span class="lang-name">Deutsch</span>
-                                <span class="lang-code">de-DE</span>
-                            </a>
-                            <a href="#" class="lang-item">
-                                <span class="lang-name">Русский</span>
-                                <span class="lang-code">ru-RU</span>
-                            </a>
-                            <a href="#" class="lang-item">
-                                <span class="lang-name">Português</span>
-                                <span class="lang-code">pt-BR</span>
-                            </a>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COIN1234</title>
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="preview">
+            <div class="row">
+                <div class="leftSide">
+                    <a href="/" class="logo">
+                        <span class="logo-text">COIN1234</span>
+                    </a>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="value">22502</span>
+                            <span class="label">虚拟币</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="value">$3.26万亿</span>
+                            <span class="label">总市值</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="value">$1038.6亿</span>
+                            <span class="label">总成交额</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="value">57.98%</span>
+                            <span class="label">BTC占比</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="value">¥7.27</span>
+                            <span class="label">USDT场外</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="value">¥7.2975</span>
+                            <span class="label">USD汇率</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="value">96Gwei</span>
+                            <span class="label">ETH Gas</span>
                         </div>
                     </div>
-                    <a class="action-item theme-toggle-header">
-                        <span class="theme-toggle-light">
-                            <i class="fas fa-sun"></i>
-                            <span>浅色</span>
-                        </span>
-                        <span class="theme-toggle-dark">
-                            <i class="fas fa-moon"></i>
-                            <span>深色</span>
-                        </span>
-                        <span class="theme-toggle-auto">
-                            <i class="fas fa-desktop"></i>
-                            <span>跟随系统</span>
-                        </span>
-                    </a>
-                    <a href="/app/" class="action-item">
-                        <i class="icon-app"></i>
-                        <span>客户端下载</span>
-                    </a>
-                    <div class="action-item">
-                        <i class="icon-user"></i>
-                        <span>登录</span><span class="separator">/</span><span>注册</span>
+                </div>
+                <div class="rightSide">
+                    <div class="actions">
+                        <div class="action-item language-switcher">
+                            <i class="icon-language"></i>
+                            <span class="current-lang">简体中文</span>
+                            <i class="icon-arrow-down"></i>
+                            <div class="language-dropdown">
+                                <a href="#" class="lang-item active">
+                                    <span class="lang-name">简体中文</span>
+                                    <span class="lang-code">zh-CN</span>
+                                </a>
+                                <a href="#" class="lang-item">
+                                    <span class="lang-name">繁體中文</span>
+                                    <span class="lang-code">zh-TW</span>
+                                </a>
+                                <a href="#" class="lang-item">
+                                    <span class="lang-name">English</span>
+                                    <span class="lang-code">en-US</span>
+                                </a>
+                                <a href="#" class="lang-item">
+                                    <span class="lang-name">日本語</span>
+                                    <span class="lang-code">ja-JP</span>
+                                </a>
+                                <a href="#" class="lang-item">
+                                    <span class="lang-name">한국어</span>
+                                    <span class="lang-code">ko-KR</span>
+                                </a>
+                                <a href="#" class="lang-item">
+                                    <span class="lang-name">Español</span>
+                                    <span class="lang-code">es-ES</span>
+                                </a>
+                                <a href="#" class="lang-item">
+                                    <span class="lang-name">Français</span>
+                                    <span class="lang-code">fr-FR</span>
+                                </a>
+                                <a href="#" class="lang-item">
+                                    <span class="lang-name">Deutsch</span>
+                                    <span class="lang-code">de-DE</span>
+                                </a>
+                                <a href="#" class="lang-item">
+                                    <span class="lang-name">Русский</span>
+                                    <span class="lang-code">ru-RU</span>
+                                </a>
+                                <a href="#" class="lang-item">
+                                    <span class="lang-name">Português</span>
+                                    <span class="lang-code">pt-BR</span>
+                                </a>
+                            </div>
+                        </div>
+                        <a class="action-item theme-toggle-header">
+                            <div class="theme-toggle-content">
+                                <div class="theme-mode theme-mode-light">
+                                    <i class="fas fa-sun"></i>
+                                    <span>日间模式</span>
+                                </div>
+                                <div class="theme-mode theme-mode-dark">
+                                    <i class="fas fa-moon"></i>
+                                    <span>夜间模式</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/app/" class="action-item">
+                            <i class="icon-app"></i>
+                            <span>客户端下载</span>
+                        </a>
+                        <button type="button" class="action-item" id="loginRegisterBtn" style="border: none; background: none; cursor: pointer; padding: 0; margin: 0; display: flex; align-items: center;">
+                            <i class="icon-user"></i>
+                            <span>登录</span><span class="separator">/</span><span>注册</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+    </nav>
+
+    <!-- 登录/注册弹窗 -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <button class="auth-close" id="authClose">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">登录</div>
+                <div class="auth-tab" data-tab="register">注册</div>
+            </div>
+            
+            <!-- 登录表单 -->
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">邮箱</label>
+                    <input type="email" id="loginEmail" required placeholder="请输入邮箱">
+                    <div class="form-error" id="loginEmailError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">密码</label>
+                    <input type="password" id="loginPassword" required placeholder="请输入密码">
+                    <div class="form-error" id="loginPasswordError"></div>
+                </div>
+                
+                <button type="submit" class="auth-submit">登录</button>
+                
+                <div class="auth-footer">
+                    <a href="#" id="forgotPassword">忘记密码？</a>
+                </div>
+            </form>
+            
+            <!-- 注册表单 -->
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerEmail">邮箱</label>
+                    <input type="email" id="registerEmail" required placeholder="请输入邮箱">
+                    <div class="form-error" id="registerEmailError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">密码</label>
+                    <input type="password" id="registerPassword" required placeholder="请输入密码">
+                    <div class="form-error" id="registerPasswordError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">确认密码</label>
+                    <input type="password" id="confirmPassword" required placeholder="请再次输入密码">
+                    <div class="form-error" id="confirmPasswordError"></div>
+                </div>
+                
+                <button type="submit" class="auth-submit">注册</button>
+                
+                <div class="auth-footer">
+                    注册即表示同意我们的 <a href="#">服务条款</a> 和 <a href="#">隐私政策</a>
+                </div>
+            </form>
+        </div>
     </div>
-</nav>
+
+    <!-- 将脚本放在body末尾 -->
+    <script src="js/auth.js"></script>
+</body>
+</html>
  
