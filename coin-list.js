@@ -2,6 +2,81 @@ class CoinList {
     constructor() {
         this.currentPage = 1;
         this.pageSize = 100;
+        this.coinSymbolMap = {
+            '比特币': 'BTC',
+            '以太坊': 'ETH',
+            '瑞波币': 'XRP',
+            '泰达币': 'USDT',
+            '币安币': 'BNB',
+            '狗狗币': 'DOGE',
+            '艾达币': 'ADA',
+            '波场': 'TRX',
+            'OK币': 'OKB',
+            '恒星币': 'XLM',
+            '莱特币': 'LTC',
+            '波卡币': 'DOT',
+            '比特现金': 'BCH',
+            '唯链': 'VET',
+            '柚子': 'EOS',
+            '阿童木': 'ATOM',
+            '埃欧塔': 'IOTA',
+            '大零币': 'ZEC',
+            '比特币SV': 'BSV',
+            'Solana': 'SOL',
+            'USD Coin': 'USDC',
+            'Wrapped Bitcoin': 'WBTC',
+            'ChainLink': 'LINK',
+            'Avalanche': 'AVAX',
+            'TONCoin': 'TON',
+            'Shiba Inu': 'SHIB',
+            'Polygon': 'MATIC',
+            'Polkadot': 'DOT',
+            'Cardano': 'ADA',
+            'Tron': 'TRX',
+            'Chainlink': 'LINK',
+            'Uniswap': 'UNI',
+            'Internet Computer': 'ICP',
+            'Stellar': 'XLM',
+            'Cosmos': 'ATOM',
+            'Monero': 'XMR',
+            'Bitcoin Cash': 'BCH',
+            'Litecoin': 'LTC',
+            'Near Protocol': 'NEAR',
+            'Arbitrum': 'ARB',
+            'Optimism': 'OP',
+            'Maker': 'MKR',
+            'VeChain': 'VET',
+            'Hedera': 'HBAR',
+            'Cronos': 'CRO',
+            'Filecoin': 'FIL',
+            'Aptos': 'APT',
+            'Algorand': 'ALGO',
+            'Fantom': 'FTM',
+            'Immutable X': 'IMX',
+            'The Graph': 'GRT',
+            'Decentraland': 'MANA',
+            'Axie Infinity': 'AXS',
+            'Tezos': 'XTZ',
+            'Conflux': 'CFX',
+            'Chiliz': 'CHZ',
+            'Flare': 'FLR',
+            'Arweave': 'AR',
+            'Fetch.ai': 'FET',
+            'Injective': 'INJ',
+            'Sui': 'SUI',
+            'KuCoin Token': 'KCS',
+            'Gate Token': 'GT',
+            'Mantle': 'MNT',
+            'Celestia': 'TIA',
+            'Stacks': 'STX',
+            'Render Token': 'RNDR',
+            'Lido DAO': 'LDO',
+            'BitTorrent': 'BTT',
+            'Curve DAO Token': 'CRV',
+            'PAX Gold': 'PAXG',
+            'MultiversX': 'EGLD',
+            'Ethereum Name Service': 'ENS'
+        };
         this.init();
     }
 
@@ -136,16 +211,32 @@ class CoinList {
             const riseValue = parseFloat(coin.rise);
             const isPositive = riseValue >= 0;
             
+            // 获取币种代号
+            let symbol = this.coinSymbolMap[coin.name];
+            if (!symbol) {
+                // 如果在映射表中找不到，尝试直接使用name中的英文部分
+                const englishMatch = coin.name.match(/[A-Za-z]+/);
+                symbol = englishMatch ? englishMatch[0].toUpperCase() : coin.symbol;
+            }
+            
+            // 添加点击事件和样式
+            tr.style.cursor = 'pointer';
+            tr.onclick = () => {
+                window.location.href = `/coin-detail.html?id=${coin.id}`;
+            };
+            
             tr.innerHTML = `
                 <td>${coin.rank || '-'}</td>
                 <td>
                     <div style="display: flex; align-items: center;">
-                        <img src="/images/coins/${coin.symbol?.toLowerCase()}.png" 
-                             onerror="this.style.display='none'" 
+                        <img src="./images/coins/${symbol}.png" 
+                             alt="${symbol}"
+                             onerror="this.onerror=null; this.style.display='none';" 
+                             style="width: 24px; height: 24px; margin-right: 8px; display: block;"
                              class="coin-icon" />
                         <div>
                             <span class="coin-name">${coin.name || '-'}</span>
-                            <span class="coin-symbol">${coin.symbol || '-'}</span>
+                            <span class="coin-symbol">${symbol || '-'}</span>
                         </div>
                     </div>
                 </td>
@@ -162,7 +253,7 @@ class CoinList {
                         <div class="trend-line">${coin.trend || 'N/A'}</div>
                     </div>
                 </td>
-        `;
+            `;
             tbody.appendChild(tr);
         });
 

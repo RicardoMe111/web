@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Detail</title>
+    <link rel="stylesheet" href="coin-detail.css">
+</head>
+<body>
+    <div class="coin-detail-container">
+        <div class="coin-header">
+            <div class="coin-basic-info">
+                <div class="coin-icon-name">
+                    <div class="rank-badge">#<span id="coinRank">--</span></div>
+                    <img id="coinIcon" class="coin-icon" src="" alt="Coin Icon">
+                    <div class="coin-name-wrapper">
+                        <h1 id="coinName">Loading...</h1>
+                        <span id="coinSymbol" class="coin-symbol"></span>
+                    </div>
+                </div>
+                <div class="coin-price-info">
+                    <div class="current-price">
+                        <span id="currentPrice">--</span>
+                        <span id="priceChange" class="price-change"></span>
+                    </div>
+                    <div class="price-stats">
+                        <div class="stat-group">
+                            <div class="stat-item">
+                                <span class="stat-label">24h High</span>
+                                <span id="high24h" class="stat-value">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">24h Low</span>
+                                <span id="low24h" class="stat-value">--</span>
+                            </div>
+                        </div>
+                        <div class="stat-group">
+                            <div class="stat-item">
+                                <span class="stat-label">24h Volume</span>
+                                <span id="volume24h" class="stat-value">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Volume / Market Cap</span>
+                                <span id="volumeMarketCapRatio" class="stat-value">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <div class="tab active" data-tab="overview">概览</div>
+            <div class="tab" data-tab="markets">市场</div>
+            <div class="tab" data-tab="historical">历史数据</div>
+            <div class="tab" data-tab="news">新闻</div>
+            <div class="tab" data-tab="social">社交</div>
+            <div class="tab" data-tab="analysis">技术分析</div>
+        </div>
+
+        <div class="coin-content">
+            <div class="main-content">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            <h2><span id="coinSymbolChart"></span> Price Chart</h2>
+                            <div class="chart-price-info">
+                                <span class="current-value" id="chartCurrentPrice">--</span>
+                                <span class="price-change" id="chartPriceChange">--</span>
+                            </div>
+                        </div>
+                        <div class="chart-controls">
+                            <div class="chart-type-selector">
+                                <button class="chart-type-btn active" data-type="price">Price</button>
+                                <button class="chart-type-btn" data-type="market_cap">Market Cap</button>
+                            </div>
+                            <div class="time-filters">
+                                <button class="time-filter active" data-period="24h">24H</button>
+                                <button class="time-filter" data-period="7d">7D</button>
+                                <button class="time-filter" data-period="30d">30D</button>
+                                <button class="time-filter" data-period="90d">90D</button>
+                                <button class="time-filter" data-period="1y">1Y</button>
+                                <button class="time-filter" data-period="all">ALL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="priceChart" class="price-chart"></div>
+                </div>
+
+                <div class="market-stats">
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <h3>Market Cap</h3>
+                            <div class="stat-value" id="marketCap">--</div>
+                            <div class="stat-change" id="marketCapChange">--</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Fully Diluted Market Cap</h3>
+                            <div class="stat-value" id="fullyDilutedMarketCap">--</div>
+                            <div class="stat-change" id="fullyDilutedMarketCapChange">--</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Volume 24h</h3>
+                            <div class="stat-value" id="volume24hDetailed">--</div>
+                            <div class="stat-change" id="volumeChange">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-content">
+                <div class="market-info-card">
+                    <h2>Market Information</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Market Cap Rank</span>
+                            <span id="marketCapRank" class="info-value">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Circulating Supply</span>
+                            <span id="circulatingSupply" class="info-value">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Total Supply</span>
+                            <span id="totalSupply" class="info-value">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Max Supply</span>
+                            <span id="maxSupply" class="info-value">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Fully Diluted Valuation</span>
+                            <span id="fullyDilutedValuation" class="info-value">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price-converter-card">
+                    <h2>Price Converter</h2>
+                    <div class="converter-form">
+                        <div class="converter-input">
+                            <input type="number" id="cryptoAmount" placeholder="0.00">
+                            <span id="cryptoSymbol">BTC</span>
+                        </div>
+                        <div class="converter-equals">=</div>
+                        <div class="converter-input">
+                            <input type="number" id="fiatAmount" placeholder="0.00">
+                            <span>USD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="coin-detail.js"></script>
+</body>
+</html> 

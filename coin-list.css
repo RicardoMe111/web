@@ -106,10 +106,8 @@
 /* 添加表格基础样式 */
 .data-table table {
     width: 100%;
-    min-width: 1000px;
     border-collapse: collapse;
     margin: 8px 0;
-    table-layout: fixed;
     background: var(--bg-primary);
     color: var(--text-primary);
     border-radius: 0 0 8px 8px;
@@ -512,4 +510,167 @@
     color: var(--text-secondary);
     font-size: 13px;
     margin: 0 2px;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .data-table {
+        background: transparent;
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        position: relative;
+    }
+
+    .data-table table {
+        min-width: auto;
+        width: 100%;
+        background: transparent;
+        margin: 0;
+    }
+    
+    .table-container {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        position: relative;
+    }
+    
+    .data-table tr {
+        display: flex;
+        padding: 10px 12px;
+        background: var(--bg-primary);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        align-items: center;
+        min-height: 48px;
+    }
+    
+    .data-table th,
+    .data-table td {
+        border: none;
+        padding: 0;
+        height: auto;
+        font-size: 14px;
+    }
+
+    /* 隐藏表头 */
+    .data-table thead {
+        display: none;
+    }
+    
+    /* 保留需要的列并调整布局 */
+    .data-table td {
+        display: flex;
+        align-items: center;
+    }
+
+    /* 序号列 */
+    .data-table td:nth-child(1) {
+        width: 20px;
+        color: var(--text-secondary);
+        margin-right: 8px;
+        flex-shrink: 0;
+    }
+
+    /* 币种列 */
+    .data-table td:nth-child(2) {
+        flex: 1;
+        min-width: 0;
+        margin-right: 8px;
+    }
+
+    /* 币种名称容器 */
+    .data-table .coin-name {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    /* 币种图标 */
+    .data-table .coin-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    /* 币种名称和代码 */
+    .data-table .coin-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .data-table .coin-symbol {
+        color: var(--text-secondary);
+        font-size: 12px;
+    }
+
+    /* 价格列 */
+    .data-table td:nth-child(3) {
+        margin-left: auto;
+        text-align: right;
+        font-weight: 500;
+        flex-shrink: 0;
+        min-width: 70px;
+    }
+
+    /* 24H涨跌幅列 */
+    .data-table td:nth-child(8) {
+        margin-left: 8px;
+        min-width: 60px;
+        text-align: right;
+        flex-shrink: 0;
+    }
+
+    /* 隐藏其他列 */
+    .data-table td:nth-child(4),
+    .data-table td:nth-child(5),
+    .data-table td:nth-child(6),
+    .data-table td:nth-child(7),
+    .data-table td:nth-child(9) {
+        display: none;
+    }
+
+    /* 筛选器样式优化 */
+    .table-header {
+        background: var(--bg-primary);
+        padding: 8px 12px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-group {
+        flex-wrap: nowrap;
+        gap: 12px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 4px 0;
+    }
+
+    .filter-group::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-btn {
+        padding: 4px 12px;
+        font-size: 14px;
+        white-space: nowrap;
+        background: transparent;
+        flex-shrink: 0;
+    }
+
+    .filter-btn.active {
+        color: #007AFF;
+        font-weight: 500;
+    }
+
+    /* 调整列表容器边距 */
+    .data-table-footer {
+        padding: 8px 12px;
+        background: var(--bg-primary);
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
 } 
